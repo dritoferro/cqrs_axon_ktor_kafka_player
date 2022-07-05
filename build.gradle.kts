@@ -35,4 +35,5 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
     implementation("org.axonframework:axon-core:4.0-M2")
+    implementation("org.axonframework:axon-kafka:4.0-M2")
 }
