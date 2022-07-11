@@ -3,7 +3,6 @@ package team.cqrs.dev.tagliaferro.handlers
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.commandhandling.TargetAggregateIdentifier
 import org.axonframework.commandhandling.model.AggregateLifecycle
-import org.axonframework.eventhandling.EventHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.slf4j.LoggerFactory
 import team.cqrs.dev.tagliaferro.commands.ContractPlayerCommand
@@ -21,7 +20,7 @@ class PlayerCommandHandler private constructor() {
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @CommandHandler
-    constructor(command: ContractPlayerCommand): this() {
+    constructor(command: ContractPlayerCommand) : this() {
         val player = Player.fromCommand(command)
         logger.info("Contracting new Player ${player.name}(${player.nationality}) and id ${player.id}")
         players.add(player)
