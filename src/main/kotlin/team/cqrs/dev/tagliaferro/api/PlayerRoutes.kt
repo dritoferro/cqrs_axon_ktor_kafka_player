@@ -8,5 +8,5 @@ import team.cqrs.dev.tagliaferro.plugins.playerController
 
 fun Route.routePlayers() {
     post("/players") { playerController.createPlayer(call) }
-    get("/players",) { playerController.listPlayers(call) }
+    get("/players") { playerController.listPlayers(call) }
 }
