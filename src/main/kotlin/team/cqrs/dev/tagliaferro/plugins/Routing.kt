@@ -1,16 +1,12 @@
 package team.cqrs.dev.tagliaferro.plugins
 
-import io.ktor.server.routing.*
-import io.ktor.http.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
+import io.ktor.server.application.Application
+import io.ktor.server.routing.routing
+import team.cqrs.dev.tagliaferro.api.routePlayers
 
 fun Application.configureRouting() {
 
     routing {
-        get("/") {
-            call.respondText("Hello World!")
-        }
+        routePlayers()
     }
 }
