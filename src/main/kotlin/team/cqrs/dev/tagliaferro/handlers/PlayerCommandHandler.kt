@@ -10,12 +10,12 @@ import team.cqrs.dev.tagliaferro.domain.Player
 import team.cqrs.dev.tagliaferro.events.PlayerContractedEvent
 import java.util.UUID
 
+private val players = mutableListOf<Player>()
+
 class PlayerCommandHandler private constructor() {
 
     @AggregateIdentifier
     private lateinit var playerId: UUID
-
-    private val players = mutableListOf<Player>()
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
