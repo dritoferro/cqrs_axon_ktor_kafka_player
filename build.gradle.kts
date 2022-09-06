@@ -34,6 +34,8 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
-    implementation("org.axonframework:axon-core:4.0-M2")
-    implementation("org.axonframework:axon-kafka:4.0-M2")
+    // Axon
+    implementation("org.axonframework:axon-server-connector:4.5.15")
+    implementation("org.axonframework:axon-configuration:4.5.15")
+
 }
