@@ -1,6 +1,8 @@
 val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
+val axon_version: String by project
+val jackson_version: String by project
 
 plugins {
     application
@@ -35,7 +37,9 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
     // Axon
-    implementation("org.axonframework:axon-server-connector:4.5.15")
-    implementation("org.axonframework:axon-configuration:4.5.15")
+    implementation("org.axonframework:axon-server-connector:$axon_version")
+    implementation("org.axonframework:axon-configuration:$axon_version")
+
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
 
 }

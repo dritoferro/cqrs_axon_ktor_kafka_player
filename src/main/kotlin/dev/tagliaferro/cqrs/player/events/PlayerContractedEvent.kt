@@ -1,10 +1,10 @@
-package team.cqrs.dev.tagliaferro.domain
+package dev.tagliaferro.cqrs.player.events
 
-import team.cqrs.dev.tagliaferro.commands.ContractPlayerCommand
+import dev.tagliaferro.cqrs.player.commands.ContractPlayerCommand
 import java.util.UUID
 
-data class Player(
-    val id: UUID,
+data class PlayerContractedEvent(
+    val playerId: UUID,
     val name: String,
     val age: Int,
     val nationality: String,
@@ -12,8 +12,8 @@ data class Player(
     val isLeftHanded: Boolean
 ) {
     companion object {
-        fun fromCommand(command: ContractPlayerCommand) = Player(
-            id = command.id,
+        fun fromCommand(command: ContractPlayerCommand) = PlayerContractedEvent(
+            playerId = command.id,
             name = command.name,
             age = command.age,
             nationality = command.nationality,

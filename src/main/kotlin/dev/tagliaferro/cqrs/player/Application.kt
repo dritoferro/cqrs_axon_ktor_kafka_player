@@ -1,11 +1,11 @@
-package team.cqrs.dev.tagliaferro
+package dev.tagliaferro.cqrs.player
 
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
-import team.cqrs.dev.tagliaferro.plugins.configureHTTP
-import team.cqrs.dev.tagliaferro.plugins.configureMonitoring
-import team.cqrs.dev.tagliaferro.plugins.configureRouting
-import team.cqrs.dev.tagliaferro.plugins.configureSerialization
+import dev.tagliaferro.cqrs.player.plugins.configureHTTP
+import dev.tagliaferro.cqrs.player.plugins.configureMonitoring
+import dev.tagliaferro.cqrs.player.plugins.configureRouting
+import dev.tagliaferro.cqrs.player.plugins.configureSerialization
 
 fun main() {
     embeddedServer(Netty, port = 8080, host = "0.0.0.0") {

@@ -1,4 +1,4 @@
-package team.cqrs.dev.tagliaferro.commands
+package dev.tagliaferro.cqrs.player.commands
 
 import java.util.UUID
 

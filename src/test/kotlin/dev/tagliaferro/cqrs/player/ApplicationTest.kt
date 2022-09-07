@@ -1,4 +1,4 @@
-package team.cqrs.dev.tagliaferro
+package dev.tagliaferro.cqrs.player
 
 import io.ktor.server.routing.*
 import io.ktor.http.*
@@ -19,6 +19,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import kotlin.test.*
 import io.ktor.server.testing.*
+import dev.tagliaferro.cqrs.player.plugins.configureRouting
 import team.cqrs.dev.tagliaferro.plugins.*
 
 class ApplicationTest {

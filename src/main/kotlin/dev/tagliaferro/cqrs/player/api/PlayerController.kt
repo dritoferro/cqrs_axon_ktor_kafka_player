@@ -1,11 +1,11 @@
-package team.cqrs.dev.tagliaferro.api
+package dev.tagliaferro.cqrs.player.api
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receive
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.slf4j.LoggerFactory
-import team.cqrs.dev.tagliaferro.commands.ContractPlayerCommand
+import dev.tagliaferro.cqrs.player.commands.ContractPlayerCommand
 
 class PlayerController(
     private val commandGateway: CommandGateway

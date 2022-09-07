@@ -1,4 +1,4 @@
-package team.cqrs.dev.tagliaferro.plugins
+package dev.tagliaferro.cqrs.player.plugins
 
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod

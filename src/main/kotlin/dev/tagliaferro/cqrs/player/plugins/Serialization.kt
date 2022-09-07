@@ -1,4 +1,4 @@
-package team.cqrs.dev.tagliaferro.plugins
+package dev.tagliaferro.cqrs.player.plugins
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.serialization.jackson.jackson

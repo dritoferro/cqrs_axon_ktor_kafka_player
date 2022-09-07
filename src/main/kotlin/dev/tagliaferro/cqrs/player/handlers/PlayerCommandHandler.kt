@@ -1,16 +1,15 @@
-package team.cqrs.dev.tagliaferro.handlers
+package dev.tagliaferro.cqrs.player.handlers
 
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle
 import org.slf4j.LoggerFactory
-import team.cqrs.dev.tagliaferro.commands.ContractPlayerCommand
-import team.cqrs.dev.tagliaferro.domain.Player
-import team.cqrs.dev.tagliaferro.events.PlayerContractedEvent
+import dev.tagliaferro.cqrs.player.commands.ContractPlayerCommand
+import dev.tagliaferro.cqrs.player.events.PlayerContractedEvent
 import java.util.UUID
 
-private val players = mutableListOf<Player>()
+private val players = mutableListOf<PlayerContractedEvent>()
 
 class PlayerCommandHandler private constructor() {
 
@@ -21,17 +20,20 @@ class PlayerCommandHandler private constructor() {
 
     @CommandHandler
     constructor(command: ContractPlayerCommand) : this() {
-        val player = Player.fromCommand(command)
-        logger.info("Contracting new Player ${player.name}(${player.nationality}) and id ${player.id}")
-        players.add(player)
+        logger.info("Contracting new Player ${command.name}(${command.nationality}) and id ${command.id}")
 
-        AggregateLifecycle.apply(PlayerContractedEvent(player.id, player.name))
+        require(players.none { it.playerId == command.id }) { throw IllegalArgumentException("Player with this id already exists") }
+
+        AggregateLifecycle.apply(PlayerContractedEvent.fromCommand(command))
     }
 
     @EventSourcingHandler
     fun playerContracted(event: PlayerContractedEvent) {
         playerId = event.playerId
         logger.info("New Player Contracted: {}", event)
+
+        players.add(event)
+
         logger.info("Players count: ${players.size}")
     }
 }
