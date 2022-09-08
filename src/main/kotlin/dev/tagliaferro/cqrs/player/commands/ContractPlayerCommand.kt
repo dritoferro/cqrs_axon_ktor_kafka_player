@@ -8,5 +8,6 @@ data class ContractPlayerCommand(
     val age: Int,
     val nationality: String,
     val isRightHanded: Boolean,
-    val isLeftHanded: Boolean
+    val isLeftHanded: Boolean,
+    val teamId: UUID
 )

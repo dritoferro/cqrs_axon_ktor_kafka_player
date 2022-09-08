@@ -1,39 +1,41 @@
 package dev.tagliaferro.cqrs.player.handlers
 
+import dev.tagliaferro.cqrs.player.commands.ContractPlayerCommand
+import dev.tagliaferro.cqrs.player.domain.Player
+import dev.tagliaferro.cqrs.player.events.PlayerContractedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle
+import org.axonframework.modelling.command.AggregateMember
 import org.slf4j.LoggerFactory
-import dev.tagliaferro.cqrs.player.commands.ContractPlayerCommand
-import dev.tagliaferro.cqrs.player.events.PlayerContractedEvent
 import java.util.UUID
-
-private val players = mutableListOf<PlayerContractedEvent>()
 
 class PlayerCommandHandler private constructor() {
 
     @AggregateIdentifier
     private lateinit var playerId: UUID
 
+    @AggregateMember
+    lateinit var player: Player
+
     private val logger = LoggerFactory.getLogger(javaClass)
 
     @CommandHandler
-    constructor(command: ContractPlayerCommand) : this() {
-        logger.info("Contracting new Player ${command.name}(${command.nationality}) and id ${command.id}")
+    constructor(player: ContractPlayerCommand) : this() {
+        logger.info("Contracting new Player ${player.name}(${player.nationality}) and id ${player.id}")
 
-        require(players.none { it.playerId == command.id }) { throw IllegalArgumentException("Player with this id already exists") }
+        require(player.name.isNotBlank()) { throw IllegalArgumentException("Player name cannot be empty") }
 
-        AggregateLifecycle.apply(PlayerContractedEvent.fromCommand(command))
+        AggregateLifecycle.apply(PlayerContractedEvent.fromCommand(player))
     }
 
     @EventSourcingHandler
-    fun playerContracted(event: PlayerContractedEvent) {
-        playerId = event.playerId
-        logger.info("New Player Contracted: {}", event)
+    fun handlePlayerContracted(event: PlayerContractedEvent) {
+        val createdPlayer = Player.fromEvent(event)
+        playerId = createdPlayer.playerId
+        player = createdPlayer
 
-        players.add(event)
-
-        logger.info("Players count: ${players.size}")
+        logger.info("New Player Contracted: {}", createdPlayer)
     }
 }

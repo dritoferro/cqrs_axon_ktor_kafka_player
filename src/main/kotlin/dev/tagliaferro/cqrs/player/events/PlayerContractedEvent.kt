@@ -9,7 +9,8 @@ data class PlayerContractedEvent(
     val age: Int,
     val nationality: String,
     val isRightHanded: Boolean,
-    val isLeftHanded: Boolean
+    val isLeftHanded: Boolean,
+    val teamId: UUID
 ) {
     companion object {
         fun fromCommand(command: ContractPlayerCommand) = PlayerContractedEvent(
@@ -18,7 +19,8 @@ data class PlayerContractedEvent(
             age = command.age,
             nationality = command.nationality,
             isRightHanded = command.isRightHanded,
-            isLeftHanded = command.isLeftHanded
+            isLeftHanded = command.isLeftHanded,
+            teamId = command.teamId
         )
     }
 }
