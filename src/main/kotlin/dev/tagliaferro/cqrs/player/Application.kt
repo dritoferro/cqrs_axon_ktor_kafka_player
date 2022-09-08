@@ -1,5 +1,6 @@
 package dev.tagliaferro.cqrs.player
 
+import dev.tagliaferro.cqrs.player.plugins.AxonConfiguration
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import dev.tagliaferro.cqrs.player.plugins.configureHTTP
@@ -14,5 +15,6 @@ fun main() {
         configureHTTP()
         configureSerialization()
         configureMonitoring()
+        AxonConfiguration.start()
     }.start(wait = true)
 }

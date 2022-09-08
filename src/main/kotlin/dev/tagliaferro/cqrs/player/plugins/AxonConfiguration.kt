@@ -18,13 +18,13 @@ object AxonConfiguration {
 
     fun getCommandGateway(): CommandGateway {
         if (!this::axonConfiguration.isInitialized) {
-            startAxon()
+            start()
         }
 
         return axonConfiguration.commandGateway()
     }
 
-    private fun startAxon() {
+    fun start() {
         if (this::axonConfiguration.isInitialized) {
             return
         }
