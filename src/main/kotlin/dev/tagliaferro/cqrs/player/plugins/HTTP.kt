@@ -1,10 +1,16 @@
 package dev.tagliaferro.cqrs.player.plugins
 
+import dev.tagliaferro.cqrs.player.exceptions.configExceptionHandler
+import io.ktor.http.*
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
+import io.ktor.server.application.*
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.plugins.cors.routing.CORS
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.respond
+import io.ktor.server.routing.*
 
 fun Application.configureHTTP() {
     install(CORS) {
@@ -15,5 +21,11 @@ fun Application.configureHTTP() {
         allowHeader(HttpHeaders.Authorization)
         allowHeader("MyCustomHeader")
         anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
+    }
+}
+
+fun Application.configureHttpHandler() {
+    install(StatusPages) {
+        configExceptionHandler()
     }
 }
