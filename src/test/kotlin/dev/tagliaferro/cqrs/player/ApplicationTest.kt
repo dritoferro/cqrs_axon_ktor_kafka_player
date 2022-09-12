@@ -1,26 +1,12 @@
 package dev.tagliaferro.cqrs.player
 
-import io.ktor.server.routing.*
-import io.ktor.http.*
-import io.ktor.server.auth.*
-import io.ktor.util.*
-import io.ktor.server.auth.jwt.*
-import com.auth0.jwt.JWT
-import com.auth0.jwt.JWTVerifier
-import com.auth0.jwt.algorithms.Algorithm
-import io.ktor.server.plugins.cors.routing.*
-import io.ktor.serialization.jackson.*
-import com.fasterxml.jackson.databind.*
-import io.ktor.server.plugins.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
-import io.ktor.server.request.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import kotlin.test.*
-import io.ktor.server.testing.*
 import dev.tagliaferro.cqrs.player.plugins.configureRouting
-import team.cqrs.dev.tagliaferro.plugins.*
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
+import io.ktor.http.HttpStatusCode
+import io.ktor.server.testing.testApplication
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class ApplicationTest {
     @Test

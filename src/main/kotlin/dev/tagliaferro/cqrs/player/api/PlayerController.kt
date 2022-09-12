@@ -29,7 +29,7 @@ class PlayerController(
 
     suspend fun listPlayers(ctx: ApplicationCall) {
         logger.info("Received request to get player")
-        val queryByPlayerId = QueryByPlayerId(playerId = "a24a14f9-cb1f-43a8-8833-c64c31ecaa59")
+        val queryByPlayerId = QueryByPlayerId(playerId = "05120f4f-b620-4e01-83a6-0d765991e098")
 
         val result = withContext(Dispatchers.IO) {
             queryGateway.query(queryByPlayerId, ResponseTypes.instanceOf(Player::class.java)).get()

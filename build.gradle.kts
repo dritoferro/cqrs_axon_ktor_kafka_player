@@ -7,6 +7,7 @@ val jackson_version: String by project
 plugins {
     application
     kotlin("jvm") version "1.7.0"
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 group = "team.cqrs.dev.tagliaferro"
@@ -41,5 +42,4 @@ dependencies {
     implementation("org.axonframework:axon-configuration:$axon_version")
 
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
-
 }

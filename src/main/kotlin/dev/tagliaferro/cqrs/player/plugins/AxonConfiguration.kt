@@ -1,5 +1,7 @@
 package dev.tagliaferro.cqrs.player.plugins
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.thoughtworks.xstream.XStream
 import dev.tagliaferro.cqrs.player.handlers.PlayerCommandHandler
 import dev.tagliaferro.cqrs.player.handlers.PlayerProjectionHandler
@@ -10,8 +12,6 @@ import org.axonframework.commandhandling.SimpleCommandBus
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.config.Configuration
 import org.axonframework.config.DefaultConfigurer
-import org.axonframework.eventsourcing.EventSourcingRepository
-import org.axonframework.messaging.MessageDispatchInterceptor
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.queryhandling.SimpleQueryBus
 import org.axonframework.serialization.json.JacksonSerializer
@@ -58,7 +58,7 @@ object AxonConfiguration {
             .configureCommandBus { commandBus }
             .configureQueryBus { queryBus }
             .configureEventStore { axonServerEventStore }
-            .registerQueryHandler { PlayerProjectionHandler::class.java }
+            .registerQueryHandler { PlayerProjectionHandler(axonServerEventStore) }
             .buildConfiguration()
 
         connectionManager.start()
@@ -85,8 +85,12 @@ object AxonConfiguration {
     private fun buildSerializers(): Pair<JacksonSerializer, XStreamSerializer> {
         val basePackage = "dev.tagliaferro.cqrs.player.**"
 
+        val om = ObjectMapper()
+        om.registerKotlinModule()
+
         val eventSerializer = JacksonSerializer
             .builder()
+            .objectMapper(om)
             .build()
 
         val xStream = XStream()

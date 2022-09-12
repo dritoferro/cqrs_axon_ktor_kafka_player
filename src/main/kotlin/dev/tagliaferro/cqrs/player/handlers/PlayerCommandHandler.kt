@@ -28,6 +28,8 @@ class PlayerCommandHandler private constructor() {
         require(player.name.isNotBlank()) { throw IllegalArgumentException("Player name cannot be empty") }
 
         AggregateLifecycle.apply(PlayerContractedEvent.fromCommand(player))
+
+        logger.info("New Player Contracted: {}", player)
     }
 
     @EventSourcingHandler
@@ -35,7 +37,5 @@ class PlayerCommandHandler private constructor() {
         val createdPlayer = Player.fromEvent(event)
         playerId = createdPlayer.playerId
         player = createdPlayer
-
-        logger.info("New Player Contracted: {}", createdPlayer)
     }
 }
