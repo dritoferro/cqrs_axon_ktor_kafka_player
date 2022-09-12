@@ -9,7 +9,7 @@ private const val DEFAULT_ERROR_MESSAGE = "An internal error occurred"
 
 fun StatusPagesConfig.configExceptionHandler() {
     exception<ExecutionException> { call, exception ->
-        when(exception.cause){
+        when (exception.cause) {
             is PlayerException -> {
                 val errorMessage = exception.cause?.message ?: DEFAULT_ERROR_MESSAGE
                 call.respond(HttpStatusCode.BadRequest, ErrorResponse(errorMessage))
