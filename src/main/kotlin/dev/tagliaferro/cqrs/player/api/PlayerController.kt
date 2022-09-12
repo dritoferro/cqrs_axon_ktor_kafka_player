@@ -28,10 +28,12 @@ class PlayerController(
     }
 
     suspend fun listPlayers(ctx: ApplicationCall) {
-        logger.info("Received request to get player")
-        val queryByPlayerId = QueryByPlayerId(playerId = "05120f4f-b620-4e01-83a6-0d765991e098")
+        val playerId = ctx.parameters["playerId"].toString()
+
+        logger.info("Received request to get player by id $playerId")
 
         val result = withContext(Dispatchers.IO) {
+            val queryByPlayerId = QueryByPlayerId(playerId = playerId)
             queryGateway.query(queryByPlayerId, ResponseTypes.instanceOf(Player::class.java)).get()
         }
 
