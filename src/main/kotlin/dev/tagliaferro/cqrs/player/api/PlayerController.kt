@@ -1,7 +1,7 @@
 package dev.tagliaferro.cqrs.player.api
 
 import dev.tagliaferro.cqrs.player.commands.ContractPlayerCommand
-import dev.tagliaferro.cqrs.player.domain.Player
+import dev.tagliaferro.cqrs.player.events.PlayerContractedEvent
 import dev.tagliaferro.cqrs.player.query.QueryByPlayerId
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
@@ -34,7 +34,7 @@ class PlayerController(
 
         val result = withContext(Dispatchers.IO) {
             val queryByPlayerId = QueryByPlayerId(playerId = playerId)
-            queryGateway.query(queryByPlayerId, ResponseTypes.instanceOf(Player::class.java)).get()
+            queryGateway.query(queryByPlayerId, ResponseTypes.instanceOf(PlayerContractedEvent::class.java)).get()
         }
 
         ctx.respond(HttpStatusCode.OK, result)

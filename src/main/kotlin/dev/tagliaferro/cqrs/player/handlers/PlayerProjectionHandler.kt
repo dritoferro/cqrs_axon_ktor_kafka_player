@@ -1,25 +1,23 @@
 package dev.tagliaferro.cqrs.player.handlers
 
-import dev.tagliaferro.cqrs.player.domain.Player
+import dev.tagliaferro.cqrs.player.events.PlayerContractedEvent
+import dev.tagliaferro.cqrs.player.exceptions.PlayerException
 import dev.tagliaferro.cqrs.player.query.QueryByPlayerId
-import org.axonframework.eventsourcing.EventSourcingRepository
 import org.axonframework.eventsourcing.eventstore.EventStore
 import org.axonframework.queryhandling.QueryHandler
-import java.util.concurrent.CompletableFuture
 
-class PlayerProjectionHandler(eventStore: EventStore) {
-
-    private val repository = EventSourcingRepository
-        .builder(PlayerCommandHandler::class.java)
-        .eventStore(eventStore)
-        .build<EventSourcingRepository<PlayerCommandHandler>>()
+class PlayerProjectionHandler(private val eventStore: EventStore) {
 
     @QueryHandler
-    fun queryByPlayerId(queryByPlayerId: QueryByPlayerId): Player {
-        val player = CompletableFuture<PlayerCommandHandler>()
+    fun queryByPlayerId(queryByPlayerId: QueryByPlayerId): PlayerContractedEvent {
+        val player = eventStore
+            .readEvents(queryByPlayerId.playerId)
+            .asStream()
+            .map { it.payload }
+            .findFirst()
 
-        repository.load(queryByPlayerId.playerId).execute(player::complete)
+        require(player.isPresent) { throw PlayerException("Player com o id ${queryByPlayerId.playerId} não encontrado ") }
 
-        return player.get().player
+        return player.get() as PlayerContractedEvent
     }
 }

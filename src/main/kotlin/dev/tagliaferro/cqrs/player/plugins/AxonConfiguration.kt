@@ -1,8 +1,5 @@
 package dev.tagliaferro.cqrs.player.plugins
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.thoughtworks.xstream.XStream
 import dev.tagliaferro.cqrs.player.handlers.PlayerCommandHandler
 import dev.tagliaferro.cqrs.player.handlers.PlayerProjectionHandler
@@ -86,15 +83,9 @@ object AxonConfiguration {
     private fun buildSerializers(): Pair<JacksonSerializer, XStreamSerializer> {
         val basePackage = "dev.tagliaferro.cqrs.player.**"
 
-        val om = ObjectMapper()
-        om
-            .registerKotlinModule()
-            .registerModule(JavaTimeModule())
-
-
         val eventSerializer = JacksonSerializer
             .builder()
-            .objectMapper(om)
+            .objectMapper(objectMapper)
             .build()
 
         val xStream = XStream()

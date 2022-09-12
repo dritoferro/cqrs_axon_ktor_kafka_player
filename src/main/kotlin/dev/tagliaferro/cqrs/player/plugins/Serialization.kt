@@ -1,9 +1,11 @@
 package dev.tagliaferro.cqrs.player.plugins
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -25,4 +27,12 @@ fun Application.configureSerialization() {
             )
         }
     }
+}
+
+val objectMapper: ObjectMapper = ObjectMapper()
+    .registerKotlinModule()
+    .registerModule(JavaTimeModule())
+
+inline fun <reified T> String.toObject(): T {
+    return objectMapper.readValue(this, T::class.java)
 }
