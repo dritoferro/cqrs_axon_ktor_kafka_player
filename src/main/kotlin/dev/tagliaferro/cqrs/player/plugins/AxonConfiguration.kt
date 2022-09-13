@@ -14,11 +14,14 @@ import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.queryhandling.SimpleQueryBus
 import org.axonframework.serialization.json.JacksonSerializer
 import org.axonframework.serialization.xml.XStreamSerializer
+import org.slf4j.LoggerFactory
 
 object AxonConfiguration {
     private lateinit var axonConfiguration: Configuration
 
-    private val AXON_SERVER_URL: String = Envs.get("AXON_SERVER_URL", "localhost:8124")
+    private val AXON_SERVER_URL: String? = Envs.get("AXON_SERVER_URL", "localhost:8124")
+
+    private val logger = LoggerFactory.getLogger(javaClass)
 
     fun getCommandGateway(): CommandGateway {
         if (!this::axonConfiguration.isInitialized) {
@@ -40,6 +43,8 @@ object AxonConfiguration {
         if (this::axonConfiguration.isInitialized) {
             return
         }
+
+        logger.info("Starting Axon Connection with this server: $AXON_SERVER_URL")
 
         val (commandBus, queryBus) = buildBus()
         val (axonServer, connectionManager) = configureServer()

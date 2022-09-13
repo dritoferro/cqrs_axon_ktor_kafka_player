@@ -1,8 +1,7 @@
 package dev.tagliaferro.cqrs.player.plugins
 
 import dev.tagliaferro.cqrs.player.api.PlayerController
-import io.github.cdimascio.dotenv.Dotenv
-import io.github.cdimascio.dotenv.dotenv
+import dev.tagliaferro.cqrs.player.exceptions.PlayerException
 import kotlinx.coroutines.Dispatchers
 
 val playerController = PlayerController(
@@ -12,13 +11,7 @@ val playerController = PlayerController(
 )
 
 object Envs {
-    private lateinit var envs: Dotenv
-
     fun get(key: String, default: String?): String {
-        if (!this::envs.isInitialized) {
-            envs = dotenv()
-        }
-
-        return envs[key, default]
+        return System.getenv(key) ?: default ?: throw PlayerException("Environment not found for key: $key")
     }
 }

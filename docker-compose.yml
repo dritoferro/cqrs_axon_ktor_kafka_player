@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  player:
+    build:
+      context: .
+    container_name: cqrs_player
+    ports:
+      - "8081:8080"
+    networks:
+      - app
+    environment:
+      AXON_SERVER_URL: axon-server:8124
+
+networks:
+  app:
+    external:
+      name: cqrs_network

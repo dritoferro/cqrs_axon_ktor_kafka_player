@@ -3,19 +3,19 @@ val kotlin_version: String by project
 val logback_version: String by project
 val axon_version: String by project
 val jackson_version: String by project
-val dotenv_version: String by project
 val axon_kotlin_version: String by project
 
 plugins {
     application
     kotlin("jvm") version "1.7.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
+    id("io.ktor.plugin") version "2.1.1"
 }
 
 group = "team.cqrs.dev.tagliaferro"
 version = "0.0.1"
 application {
-    mainClass.set("team.cqrs.dev.tagliaferro.ApplicationKt")
+    mainClass.set("dev.tagliaferro.cqrs.player.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -24,6 +24,12 @@ application {
 repositories {
     mavenCentral()
     maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("player.jar")
+    }
 }
 
 dependencies {
@@ -52,7 +58,4 @@ dependencies {
 
     // Jackson
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
-
-    // DotEnv
-    implementation("io.github.cdimascio:dotenv-kotlin:$dotenv_version")
 }
