@@ -32,7 +32,7 @@ class PlayerCommandHandler private constructor() {
         logger.info("New Player Contracted: {}", player)
     }
 
-    @EventSourcingHandler
+    @EventSourcingHandler(payloadType = PlayerContractedEvent::class)
     fun handlePlayerContracted(event: PlayerContractedEvent) {
         val createdPlayer = Player.fromEvent(event)
         playerId = createdPlayer.playerId

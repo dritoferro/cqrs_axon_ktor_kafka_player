@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory
 object AxonConfiguration {
     private lateinit var axonConfiguration: Configuration
 
-    private val AXON_SERVER_URL: String? = Envs.get("AXON_SERVER_URL", "localhost:8124")
+    private val AXON_SERVER_URL: String = Envs.get("AXON_SERVER_URL", "localhost:8124")
 
     private val logger = LoggerFactory.getLogger(javaClass)
 

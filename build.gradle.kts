@@ -12,8 +12,8 @@ plugins {
     id("io.ktor.plugin") version "2.1.1"
 }
 
-group = "team.cqrs.dev.tagliaferro"
-version = "0.0.1"
+group = "dev.tagliaferro.cqrs.player"
+version = "1.0.0"
 application {
     mainClass.set("dev.tagliaferro.cqrs.player.ApplicationKt")
 
