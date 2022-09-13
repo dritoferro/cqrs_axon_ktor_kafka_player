@@ -4,6 +4,7 @@ val logback_version: String by project
 val axon_version: String by project
 val jackson_version: String by project
 val dotenv_version: String by project
+val axon_kotlin_version: String by project
 
 plugins {
     application
@@ -47,6 +48,7 @@ dependencies {
     // Axon
     implementation("org.axonframework:axon-server-connector:$axon_version")
     implementation("org.axonframework:axon-configuration:$axon_version")
+    implementation("org.axonframework.extensions.kotlin:axon-kotlin:$axon_kotlin_version")
 
     // Jackson
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
