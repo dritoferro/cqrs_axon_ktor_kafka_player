@@ -18,6 +18,8 @@ import org.axonframework.serialization.xml.XStreamSerializer
 object AxonConfiguration {
     private lateinit var axonConfiguration: Configuration
 
+    private val AXON_SERVER_URL: String = Envs.get("AXON_SERVER_URL", "localhost:8124")
+
     fun getCommandGateway(): CommandGateway {
         if (!this::axonConfiguration.isInitialized) {
             start()
@@ -114,7 +116,7 @@ object AxonConfiguration {
     private fun configureServer(): Pair<AxonServerConfiguration, AxonServerConnectionManager> {
         val axonServer = AxonServerConfiguration
             .builder()
-            .servers("localhost:8124")
+            .servers(AXON_SERVER_URL)
             .build()
 
         val connectionManager = AxonServerConnectionManager

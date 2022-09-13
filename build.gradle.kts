@@ -3,6 +3,7 @@ val kotlin_version: String by project
 val logback_version: String by project
 val axon_version: String by project
 val jackson_version: String by project
+val dotenv_version: String by project
 
 plugins {
     application
@@ -36,8 +37,8 @@ dependencies {
     implementation("io.ktor:ktor-server-netty-jvm:$ktor_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-status-pages:$ktor_version")
-    implementation("io.ktor:ktor-server-host-common-jvm:2.0.3")
-    implementation("io.ktor:ktor-server-status-pages-jvm:2.0.3")
+    implementation("io.ktor:ktor-server-host-common-jvm:$ktor_version")
+    implementation("io.ktor:ktor-server-status-pages-jvm:$ktor_version")
 
     // Test
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
@@ -49,4 +50,7 @@ dependencies {
 
     // Jackson
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
+
+    // DotEnv
+    implementation("io.github.cdimascio:dotenv-kotlin:$dotenv_version")
 }
